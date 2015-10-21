@@ -10,6 +10,9 @@ public class Window extends JFrame {
 	//Panel for graph information
 	private JPanel infoPanel = new JPanel();
 	
+	//Main panel for graph
+	private JPanel graphPanel = new JPanel();
+	
 	/*Buttons for selecting which graph you want
 	as well as the group for the buttons */
 	ButtonGroup group = new ButtonGroup();
@@ -17,9 +20,7 @@ public class Window extends JFrame {
 	private JRadioButton g2 = new JRadioButton("Second Graph");
 	private JRadioButton g3 = new JRadioButton("Third Graph");
 	
-	/*The layout and components for the info 
-	  panel. GridBagLayout for better looking
-	  layout. */
+	//The components for the info panel. 	
 	private JLabel xMinLabel = new JLabel("X Min:");
 	private JTextField xMinText = new JTextField("-10");
 	private JLabel xMaxLabel = new JLabel("X Max:");
@@ -29,9 +30,14 @@ public class Window extends JFrame {
 	private JLabel yMaxLabel = new JLabel("Y Max:");
 	private JTextField yMaxText = new JTextField("10");
 	
+	//the components for the graph panel
+	private JLabel lblxy = new JLabel("(X,Y): ");
+	private JTextField xyID = new JTextField();
+	
 	public Window() {
 		setTitle("Graphing Application");
-		setSize(640, 480);
+		setSize(800, 600);
+		setResizable(false);
 		
 		//initial button layout
 		add(buttonPanel, BorderLayout.NORTH);
@@ -42,6 +48,7 @@ public class Window extends JFrame {
 		buttonPanel.add(g2);
 		buttonPanel.add(g3);	
 		
+		//labels and textfields for x,y min/max
 		add(infoPanel, BorderLayout.SOUTH);
 		infoPanel.add(xMinLabel);
 		infoPanel.add(xMinText);
@@ -51,6 +58,16 @@ public class Window extends JFrame {
 		infoPanel.add(yMinText);
 		infoPanel.add(yMaxLabel);
 		infoPanel.add(yMaxText);
+		
+		//the main graph panel components
+		add(graphPanel, BorderLayout.CENTER);
+		graphPanel.setLayout(null);
+		lblxy.setBounds(680, 14, 46, 14);
+		graphPanel.add(lblxy);
+		xyID.setEditable(false);
+		xyID.setBounds(715, 11, 59, 20);
+		graphPanel.add(xyID);
+		
 	}
 	
 	public static void main(String[] args) {
