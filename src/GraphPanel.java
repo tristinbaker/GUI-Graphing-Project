@@ -4,208 +4,51 @@ import java.awt.event.*;
 import java.util.*;
  
 public class GraphPanel extends JPanel {
-	//Graph position
-	private double x;
-	private double y;
-	private double angle;
-	private LinkedList<GraphLine> lines;
-	private boolean scaleMode;
-	private double tw;
-	private double th;
-	private boolean penDown;
-	private Color color;
-	private double speed;
-	private static final double FPS = 24.0;
- 
+	
+	private double xMin, xMax, yMin, yMax;
+
 	public GraphPanel() {
-		x=0;
-		y=0;
-		angle=90.0;
- 
-		lines = new LinkedList<GraphLine>();
-		scaleMode = false;
-		penDown = true;
- 
-		speed = 50;
+		xMin = -10;
+		xMax = 10;
+		yMin = -10;
+		yMax = 10;
 	}
- 
- 
-	public void forward(double length) {
-		double ex, ey;
- 
-		ex = x + length * Math.cos(Math.toRadians(angle));
-		ey = y + length * Math.sin(Math.toRadians(angle));
- 
-		setpos(ex, ey);
+	
+	public void paintComponent(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.drawLine(0, 300, 800, 300);
+		g.drawLine(400, 0, 400, 600);
 	}
- 
- 
-	public void backward(double length) {
-		double ex, ey;
- 
-		ex = x - length * Math.cos(Math.toRadians(angle));
-		ey = y - length * Math.sin(Math.toRadians(angle));
- 
-		setpos(ex, ey);
+	
+	private void setXMin(double xMin) {
+		this.xMin = xMin;
 	}
- 
- 
-	public void setpos(double x, double y) {
-		if (penDown) {
-			// create the line
-			Point start = new Point();
-			Point end = new Point();
-			start.setLocation(this.x, this.y);
-			end.setLocation(x, y);
-			GraphLine l = new GraphLine(start, end, color);
- 
-			// add and draw
-			lines.add(l);
-			l.draw((Graphics2D) getGraphics());
-		}
- 
-		//update the Graph position
-		this.x = x;
-		this.y = y;
+	
+	private void setXMax(double xMax) {
+		this.xMax = xMax;
 	}
- 
- 
-	public void left(double a) {
-		angle += a;
-		correctAngle();
+	
+	private void setYMin(double yMin) {
+		this.yMin = yMin;
 	}
- 
-	public void right(double a) {
-		angle -= a;
-		correctAngle();
+	
+	private void setYMax(double yMax) {
+		this.yMax = yMax;
 	}
- 
-	public void penup() {
-		penDown = false;
+	
+	public double getXMin() {
+		return xMin;
 	}
- 
-	public void pendown() {
-		penDown = true;
+	
+	public double getXMax() {
+		return xMax;
 	}
- 
- 
-	public void setpencolor(Color color) {
-		this.color = color;
+	
+	public double getYMin() {
+		return yMin;
 	}
- 
-	public void setScaling(boolean scaleMode) {
-		this.scaleMode = scaleMode;
-		repaint();  //the animators best friend!
-	}
- 
- 
-	public void setGraphWorldSize(double tw, double th) {
-		this.tw = tw;
-		this.th = th;
-		repaint();
-	}
- 
- 
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
- 
-	private void correctAngle() {
-		if(angle > 360) {
-			angle %= 360;
-		} 
- 
-		while(angle < 0) {
-			angle += 360; 
-		}
-	}
- 
- 
- 
- 
-	@Override
-	public void paint(Graphics gc) {
-		super.paint(gc);
- 
-		//repaint our lines
-		Graphics2D g = (Graphics2D) gc;
-		for(GraphLine l : lines) {
-			l.draw(g);
-		}
-	}
- 
- 
- 
- 
-	/**
-	 * A class which represents a Graph line.
-	 * Points are in Graph space
-	 * @author robert.lowe
-	 *
-	 */
-	private class GraphLine {
-		private Point start;
-		private Point end;
-		private Color color;
- 
-		public GraphLine(Point start, Point end, Color color) {
-			this.start = start;
-			this.end = end;
-			this.color = color;
-		}
- 
-		public void draw(Graphics2D g) {
-			int x, y, ex, ey;
- 
-			//round off our pixels for the starting point
-			Point p = screenPoint(start);
-			x = (int) Math.round(p.getX());
-			y = (int) Math.round(p.getY());
- 
-			//round off our pixels for the ending point
-			p = screenPoint(end);
-			ex = (int) Math.round(p.getX());
-			ey = (int) Math.round(p.getY());
- 
-			//draw the line
-			g.setColor(color);
-			g.drawLine(x, y, ex, ey);
-		}
- 
- 
-		public void drawAnimated(Graphics2D g) {
- 
-		}
- 
- 
-		/**
-		 * Translate a point from turtle space to pixel space
-		 * @param p point to translate
-		 * @return translated point
-		 */
-		private Point screenPoint(Point p) {
-			double w = getWidth();
-			double h = getHeight();
-			Point result = new Point();
- 
-			if(scaleMode) {
-				//perform scaling
-				double x;
-				double y;
- 
-				//scale
-				x = (w/tw) * p.getX();
-				y = (h/th) * p.getY();
- 
-				//tranlsate
-				x += w/2.0;
-				y = h/2.0 - y;
- 
-				result.setLocation(x, y);
-			} else {
-				result.setLocation(w/2.0 + p.getX(), h/2.0 - p.getY());
-			}
-			return result;
-		}
+	
+	public double getYMax() {
+		return yMax;
 	}
 }
