@@ -17,7 +17,7 @@ public class GraphPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.drawLine(0, 300, 800, 300);
-		g.drawLine(400, 0, 400, 600);
+		g.drawLine(400, 50, 400, 570);
 	}
 	
 	private void setXMin(double xMin) {
