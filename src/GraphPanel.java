@@ -6,33 +6,50 @@ import java.util.*;
 public class GraphPanel extends JPanel {
 	
 	private double xMin, xMax, yMin, yMax;
+	double xAxis, yAxis;
+	
+	int test = 0;
 
 	public GraphPanel() {
 		xMin = -10;
 		xMax = 10;
 		yMin = -10;
 		yMax = 10;
+		xAxis = Math.abs(xMin) / (Math.abs(xMin) + Math.abs(xMax)) * getWidth();
+		yAxis = Math.abs(yMin) / (Math.abs(yMin) + Math.abs(yMax)) * getHeight();
 	}
 	
-	public void paintComponent(Graphics g) {
+	public void paint(Graphics gc) {
+		super.paint(gc);
+		
+		Graphics2D g = (Graphics2D) gc;
+		
 		g.setColor(Color.BLACK);
-		g.drawLine(0, 300, 800, 300);
-		g.drawLine(400, 50, 400, 570);
+		
+		if(xMin <= 0 && xMax >= 0) {
+			g.drawLine((int)xAxis, 0, (int)xAxis, getHeight());
+		}
+		
+		
+		if(yMin <= 0 && yMax >= 0) {
+			g.drawLine(0, (int)yAxis, getWidth(), (int)yAxis);
+		} 
+		//axes(g, xMin, xMax, yMin, yMax);
 	}
 	
-	private void setXMin(double xMin) {
+	public void setXMin(double xMin) {
 		this.xMin = xMin;
 	}
 	
-	private void setXMax(double xMax) {
+	public void setXMax(double xMax) {
 		this.xMax = xMax;
 	}
 	
-	private void setYMin(double yMin) {
+	public void setYMin(double yMin) {
 		this.yMin = yMin;
 	}
 	
-	private void setYMax(double yMax) {
+	public void setYMax(double yMax) {
 		this.yMax = yMax;
 	}
 	
@@ -51,4 +68,19 @@ public class GraphPanel extends JPanel {
 	public double getYMax() {
 		return yMax;
 	}
+	
+	private void axes(Graphics2D g, double xMin, double xMax, double yMin, double yMax) {
+		double xAxis = Math.abs(xMin) / (Math.abs(xMin) + Math.abs(xMax)) * getWidth();
+		double yAxis = Math.abs(yMin) / (Math.abs(yMin) + Math.abs(yMax)) * getHeight();
+		
+		if(xMin <= 0 && xMax >= 0) {
+			g.drawLine((int)xAxis, 0, (int)xAxis, getHeight());
+		}
+		
+		
+		if(yMin <= 0 && yMax >= 0) {
+			g.drawLine(0, (int)yAxis, getWidth(), (int)yAxis);
+		}
+	}
+	
 }

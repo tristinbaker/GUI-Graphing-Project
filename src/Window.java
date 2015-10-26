@@ -4,6 +4,9 @@ import java.awt.event.*;
 
 public class Window extends JFrame {
 	
+	//counter for which graph you're on
+	private int count = 0;
+	
 	//Panel for buttons (obviously)
 	private JPanel buttonPanel = new JPanel();
 	
@@ -37,11 +40,12 @@ public class Window extends JFrame {
 	//graphpanel
 	GraphPanel p = new GraphPanel();
 	
-	//graph drawer
-	GraphDraw drawer = new GraphDraw();
+	Painter painter = new Painter();
 	
 	//function initializers
 	public SinX sinx = new SinX();
+	public XSquared x2 = new XSquared();
+	public XCubed x3 = new XCubed();
 	
 	public Window() {
 		setTitle("Graphing Application");
@@ -59,47 +63,131 @@ public class Window extends JFrame {
 		g2.setForeground(Color.WHITE);
 		g3.setBackground(Color.GRAY);
 		g3.setForeground(Color.WHITE);
-		buttonPanel.add(g1);
-		buttonPanel.add(g2);
-		buttonPanel.add(g3);
-		buttonPanel.setBackground(Color.DARK_GRAY);
 		g1.addActionListener(new ActionListener() {
 			 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				setGraph(1);
+				repaint();
 			}
 		});
+		g2.addActionListener(new ActionListener() {
+			 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setGraph(2);
+				repaint();
+			}
+		});
+		g3.addActionListener(new ActionListener() {
+			 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setGraph(3);
+				repaint();
+			}
+		});
+		buttonPanel.add(g1);
+		buttonPanel.add(g2);
+		buttonPanel.add(g3);
+		buttonPanel.setBackground(Color.DARK_GRAY);
+		
 		
 		//labels and textfields for x,y min/max
 		add(infoPanel, BorderLayout.SOUTH);
 		xMinLabel.setForeground(Color.white);
 		infoPanel.add(xMinLabel);
 		xMinText.setColumns(5);
+		xMinText.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String xMinValue = xMinText.getText();
+				double xMin = Double.parseDouble(xMinValue);
+				p.setXMin(xMin);
+				System.out.println(p.getXMin());
+			}
+		});
 		infoPanel.add(xMinText);
 		xMaxLabel.setForeground(Color.white);
 		infoPanel.add(xMaxLabel);
 		xMaxText.setColumns(5);
+		xMaxText.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String xMaxValue = xMaxText.getText();
+				double xMax = Double.parseDouble(xMaxValue);
+				p.setXMax(xMax);
+				System.out.println(p.getXMax());
+			}
+		});
 		infoPanel.add(xMaxText);
 		yMinLabel.setForeground(Color.white);
 		infoPanel.add(yMinLabel);
 		yMinText.setColumns(5);
+		yMinText.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String yMinValue = yMinText.getText();
+				double yMin = Double.parseDouble(yMinValue);
+				p.setYMin(yMin);
+				System.out.println(p.getYMin());
+			}
+		});
 		infoPanel.add(yMinText);
 		yMaxLabel.setForeground(Color.white);
 		infoPanel.add(yMaxLabel);
 		yMaxText.setColumns(5);
+		yMaxText.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String yMaxValue = yMaxText.getText();
+				double yMax = Double.parseDouble(yMaxValue);
+				p.setYMax(yMax);
+				System.out.println(p.getYMax());
+			}
+		});
 		infoPanel.add(yMaxText);
 		infoPanel.setBackground(Color.DARK_GRAY);
 		
 		//the main graph panel components
-		add(graphPanel, BorderLayout.CENTER);
-		graphPanel.setLayout(null);
+		painter.setLayout(null);
 		lblxy.setBounds(680, 14, 46, 14);
-		graphPanel.add(lblxy);
+		painter.add(lblxy);
 		xyID.setEditable(false);
 		xyID.setBounds(715, 11, 59, 20);
-		graphPanel.add(xyID);
-		graphPanel.add(drawer);
+		painter.add(xyID); 
+		
+		add(painter, BorderLayout.CENTER);
+	}
+	
+	private void setGraph(int count) {
+		this.count = count;
+	}
+	
+	private int getGraph() {
+		return count;
+	}
+
+	class Painter extends JPanel {
+		@Override
+		public void paintComponent(Graphics gc) {			
+			super.paintComponent(gc);
+		 
+			//repaint our lines
+			Graphics2D g = (Graphics2D) gc;		
+			p.paint(g);
+			if(getGraph() == 1) {
+				sinx.paint(g);
+			} else if(getGraph() == 2) {
+				x2.paint(g);
+			} else if(getGraph() == 3) {
+				x3.paint(g);
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
