@@ -52,6 +52,7 @@ public class Window extends JFrame {
 		setSize(800, 600);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		
 		//initial button layout
 		add(buttonPanel, BorderLayout.NORTH);
 		group.add(g1);
@@ -160,14 +161,16 @@ public class Window extends JFrame {
 		xyID.setEditable(false);
 		xyID.setBounds(715, 11, 59, 20);
 		painter.add(xyID); 
-		
+		painter.setBackground(Color.white);
 		add(painter, BorderLayout.CENTER);
 	}
 	
+	//sets which graph will be graphed
 	private void setGraph(int count) {
 		this.count = count;
 	}
 	
+	//returns which graph will be graphed
 	private int getGraph() {
 		return count;
 	}

@@ -7,16 +7,14 @@ public class GraphPanel extends JPanel {
 	
 	private double xMin, xMax, yMin, yMax;
 	double xAxis, yAxis;
-	
-	int test = 0;
 
 	public GraphPanel() {
 		xMin = -10;
 		xMax = 10;
 		yMin = -10;
 		yMax = 10;
-		xAxis = Math.abs(xMin) / (Math.abs(xMin) + Math.abs(xMax)) * getWidth();
-		yAxis = Math.abs(yMin) / (Math.abs(yMin) + Math.abs(yMax)) * getHeight();
+		xAxis = Math.abs(xMin) / (Math.abs(xMin) + Math.abs(xMax)) * 794;
+		yAxis = Math.abs(yMin) / (Math.abs(yMin) + Math.abs(yMax)) * 507;
 	}
 	
 	public void paint(Graphics gc) {
@@ -24,15 +22,16 @@ public class GraphPanel extends JPanel {
 		
 		Graphics2D g = (Graphics2D) gc;
 		
-		g.setColor(Color.BLACK);
+		g.setColor(Color.white);
 		
 		if(xMin <= 0 && xMax >= 0) {
-			g.drawLine((int)xAxis, 0, (int)xAxis, getHeight());
+			g.drawLine((int)xAxis, 0, (int)xAxis, 507);
+			System.out.println(xAxis);
 		}
 		
 		
 		if(yMin <= 0 && yMax >= 0) {
-			g.drawLine(0, (int)yAxis, getWidth(), (int)yAxis);
+			g.drawLine(0, (int)yAxis, 794, (int)yAxis);
 		} 
 		//axes(g, xMin, xMax, yMin, yMax);
 	}
