@@ -107,6 +107,7 @@ public class Window extends JFrame {
 				double xMin = Double.parseDouble(xMinValue);
 				p.setXMin(xMin);
 				repaint();
+				p.update();
 			}
 		});
 		infoPanel.add(xMinText);
@@ -121,6 +122,7 @@ public class Window extends JFrame {
 				double xMax = Double.parseDouble(xMaxValue);
 				p.setXMax(xMax);
 				repaint();
+				p.update();
 			}
 		});
 		infoPanel.add(xMaxText);
@@ -135,6 +137,7 @@ public class Window extends JFrame {
 				double yMin = Double.parseDouble(yMinValue);
 				p.setYMin(yMin);
 				repaint();
+				p.update();
 			}
 		});
 		infoPanel.add(yMinText);
@@ -149,6 +152,7 @@ public class Window extends JFrame {
 				double yMax = Double.parseDouble(yMaxValue);
 				p.setYMax(yMax);
 				repaint();
+				p.update();
 			}
 		});
 		infoPanel.add(yMaxText);
@@ -183,12 +187,13 @@ public class Window extends JFrame {
 			//repaint our lines
 			Graphics2D g = (Graphics2D) gc;		
 			
+			//x-axis
 			if(p.getXMin() <= 0 && p.getXMax() >= 0) {
 				g.setColor(Color.black);
 				g.drawLine((int)p.getXAxis(), 0, (int)p.getXAxis(), 507);
 			}
 			
-			
+			//y-axis
 			if(p.getYMin() <= 0 && p.getYMax() >= 0) {
 				g.drawLine(0, (int)p.getYAxis(), 794, (int)p.getYAxis());
 			} 

@@ -57,4 +57,9 @@ public class GraphPanel extends JPanel {
 		return yAxis;
 	}
 	
+	public void update() {
+		xAxis = Math.abs(xMin) / (Math.abs(xMin) + Math.abs(xMax)) * 794;
+		yAxis = Math.abs(yMin) / (Math.abs(yMin) + Math.abs(yMax)) * 507;
+	}
+	
 }
