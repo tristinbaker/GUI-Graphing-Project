@@ -17,25 +17,6 @@ public class GraphPanel extends JPanel {
 		yAxis = Math.abs(yMin) / (Math.abs(yMin) + Math.abs(yMax)) * 507;
 	}
 	
-	public void paint(Graphics gc) {
-		super.paint(gc);
-		
-		Graphics2D g = (Graphics2D) gc;
-		
-		g.setColor(Color.white);
-		
-		if(xMin <= 0 && xMax >= 0) {
-			g.drawLine((int)xAxis, 0, (int)xAxis, 507);
-			System.out.println(xAxis);
-		}
-		
-		
-		if(yMin <= 0 && yMax >= 0) {
-			g.drawLine(0, (int)yAxis, 794, (int)yAxis);
-		} 
-		//axes(g, xMin, xMax, yMin, yMax);
-	}
-	
 	public void setXMin(double xMin) {
 		this.xMin = xMin;
 	}
@@ -68,18 +49,12 @@ public class GraphPanel extends JPanel {
 		return yMax;
 	}
 	
-	private void axes(Graphics2D g, double xMin, double xMax, double yMin, double yMax) {
-		double xAxis = Math.abs(xMin) / (Math.abs(xMin) + Math.abs(xMax)) * getWidth();
-		double yAxis = Math.abs(yMin) / (Math.abs(yMin) + Math.abs(yMax)) * getHeight();
-		
-		if(xMin <= 0 && xMax >= 0) {
-			g.drawLine((int)xAxis, 0, (int)xAxis, getHeight());
-		}
-		
-		
-		if(yMin <= 0 && yMax >= 0) {
-			g.drawLine(0, (int)yAxis, getWidth(), (int)yAxis);
-		}
+	public double getXAxis() {
+		return xAxis;
+	}
+	
+	public double getYAxis() {
+		return yAxis;
 	}
 	
 }

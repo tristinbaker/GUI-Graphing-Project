@@ -106,7 +106,7 @@ public class Window extends JFrame {
 				String xMinValue = xMinText.getText();
 				double xMin = Double.parseDouble(xMinValue);
 				p.setXMin(xMin);
-				System.out.println(p.getXMin());
+				repaint();
 			}
 		});
 		infoPanel.add(xMinText);
@@ -120,7 +120,7 @@ public class Window extends JFrame {
 				String xMaxValue = xMaxText.getText();
 				double xMax = Double.parseDouble(xMaxValue);
 				p.setXMax(xMax);
-				System.out.println(p.getXMax());
+				repaint();
 			}
 		});
 		infoPanel.add(xMaxText);
@@ -134,7 +134,7 @@ public class Window extends JFrame {
 				String yMinValue = yMinText.getText();
 				double yMin = Double.parseDouble(yMinValue);
 				p.setYMin(yMin);
-				System.out.println(p.getYMin());
+				repaint();
 			}
 		});
 		infoPanel.add(yMinText);
@@ -148,7 +148,7 @@ public class Window extends JFrame {
 				String yMaxValue = yMaxText.getText();
 				double yMax = Double.parseDouble(yMaxValue);
 				p.setYMax(yMax);
-				System.out.println(p.getYMax());
+				repaint();
 			}
 		});
 		infoPanel.add(yMaxText);
@@ -182,7 +182,17 @@ public class Window extends JFrame {
 		 
 			//repaint our lines
 			Graphics2D g = (Graphics2D) gc;		
-			p.paint(g);
+			
+			if(p.getXMin() <= 0 && p.getXMax() >= 0) {
+				g.setColor(Color.black);
+				g.drawLine((int)p.getXAxis(), 0, (int)p.getXAxis(), 507);
+			}
+			
+			
+			if(p.getYMin() <= 0 && p.getYMax() >= 0) {
+				g.drawLine(0, (int)p.getYAxis(), 794, (int)p.getYAxis());
+			} 
+			
 			if(getGraph() == 1) {
 				sinx.paint(g);
 			} else if(getGraph() == 2) {
