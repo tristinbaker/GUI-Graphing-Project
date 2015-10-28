@@ -40,7 +40,11 @@ public class Window extends JFrame {
 	//graphpanel
 	GraphPanel p = new GraphPanel();
 	
+	//inner paint class
 	Painter painter = new Painter();
+	
+	//scaler
+	Scaler s = new Scaler();
 	
 	//function initializers
 	public SinX sinx = new SinX();
@@ -108,6 +112,7 @@ public class Window extends JFrame {
 				p.setXMin(xMin);
 				repaint();
 				p.update();
+				s.update();
 			}
 		});
 		infoPanel.add(xMinText);
@@ -123,6 +128,7 @@ public class Window extends JFrame {
 				p.setXMax(xMax);
 				repaint();
 				p.update();
+				s.update();
 			}
 		});
 		infoPanel.add(xMaxText);
@@ -138,6 +144,7 @@ public class Window extends JFrame {
 				p.setYMin(yMin);
 				repaint();
 				p.update();
+				s.update();
 			}
 		});
 		infoPanel.add(yMinText);
@@ -153,6 +160,7 @@ public class Window extends JFrame {
 				p.setYMax(yMax);
 				repaint();
 				p.update();
+				s.update();
 			}
 		});
 		infoPanel.add(yMaxText);
@@ -177,6 +185,11 @@ public class Window extends JFrame {
 	//returns which graph will be graphed
 	private int getGraph() {
 		return count;
+	}
+	
+	private Point screenPoint(Point p) {
+		p.setLocation(s.getScale() * 794, s.getScale() * 507);
+		return p;
 	}
 
 	class Painter extends JPanel {
