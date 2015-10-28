@@ -44,7 +44,7 @@ public class Window extends JFrame {
 	Painter painter = new Painter();
 	
 	//scaler
-	Scaler s = new Scaler();
+	Scale s = new Scale();
 	
 	//function initializers
 	public SinX sinx = new SinX();
@@ -110,9 +110,10 @@ public class Window extends JFrame {
 				String xMinValue = xMinText.getText();
 				double xMin = Double.parseDouble(xMinValue);
 				p.setXMin(xMin);
-				repaint();
 				p.update();
+				System.out.println("After setting X Min, X Min: " + p.getXMin());
 				s.update();
+				repaint();
 			}
 		});
 		infoPanel.add(xMinText);
@@ -126,9 +127,9 @@ public class Window extends JFrame {
 				String xMaxValue = xMaxText.getText();
 				double xMax = Double.parseDouble(xMaxValue);
 				p.setXMax(xMax);
-				repaint();
 				p.update();
 				s.update();
+				repaint();
 			}
 		});
 		infoPanel.add(xMaxText);
@@ -142,9 +143,9 @@ public class Window extends JFrame {
 				String yMinValue = yMinText.getText();
 				double yMin = Double.parseDouble(yMinValue);
 				p.setYMin(yMin);
-				repaint();
 				p.update();
 				s.update();
+				repaint();
 			}
 		});
 		infoPanel.add(yMinText);
@@ -158,9 +159,9 @@ public class Window extends JFrame {
 				String yMaxValue = yMaxText.getText();
 				double yMax = Double.parseDouble(yMaxValue);
 				p.setYMax(yMax);
-				repaint();
 				p.update();
 				s.update();
+				repaint();
 			}
 		});
 		infoPanel.add(yMaxText);
@@ -187,16 +188,14 @@ public class Window extends JFrame {
 		return count;
 	}
 	
-	private Point screenPoint(Point p) {
-		p.setLocation(s.getScale() * 794, s.getScale() * 507);
-		return p;
-	}
 
 	class Painter extends JPanel {
 		@Override
 		public void paintComponent(Graphics gc) {			
 			super.paintComponent(gc);
 		 
+			
+			
 			//repaint our lines
 			Graphics2D g = (Graphics2D) gc;		
 			

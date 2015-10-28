@@ -1,34 +1,34 @@
 
 public class Scaler  {
 
-	GraphPanel p = new GraphPanel();
-	public double scale = 0;
+	/*GraphPanel p = new GraphPanel();
+	public double scaleX = 0;
 	public double screenMaxX = 0;
 	public double screenMinX = 0;
 	public double screenMaxY = 0;
 	public double screenMinY = 0;
 	
 	public Scaler() {
-		scale = Math.abs(p.getXMin())/(Math.abs(p.getXMin())+Math.abs(p.getXMax()));
+		scaleX = Math.abs(p.getXMin())/(Math.abs(p.getXMin())+Math.abs(p.getXMax()));
 		if(p.getXMin() < 0) {
-			screenMinX = -1 * (794 * scale);
+			screenMinX = -1 * (794 * scaleX);
 			screenMaxX = 794 + screenMinX;
 		} else {
-			screenMinX = 794 * scale;
+			screenMinX = 794 * scaleX;
 			screenMaxX = 794 - screenMinX;
 		}
 		
 		if(p.getYMin() < 0) {
-			screenMinY = -1 * (507 * scale);
+			screenMinY = -1 * (507 * scaleX);
 			screenMaxY = 507 + screenMinY;
 		} else {
-			screenMinY = 507 * scale;
+			screenMinY = 507 * scaleX;
 			screenMaxY = 507 - screenMinY;
 		}
 	}
 	
-	public double getScale() {
-		return scale;
+	public double getScaleX() {
+		return scaleX;
 	}
 	
 	public double getScreenMinX() {
@@ -48,21 +48,22 @@ public class Scaler  {
 	}
 	
 	public void update() {
-		scale = Math.abs(p.getXMin())/(Math.abs(p.getXMin())+Math.abs(p.getXMax()));
+		scaleX = Math.abs(p.getXMin())/(Math.abs(p.getXMin())+Math.abs(p.getXMax()));
 		if(p.getXMin() < 0) {
-			screenMinX = -1 * (794 * scale);
+			screenMinX = -1 * (794 * scaleX);
 			screenMaxX = 794 + screenMinX;
 		} else {
-			screenMinX = 794 * scale;
+			screenMinX = 794 * scaleX;
 			screenMaxX = 794 - screenMinX;
 		}
 		
 		if(p.getYMin() < 0) {
-			screenMinY = -1 * (507 * scale);
+			screenMinY = -1 * (507 * scaleX);
 			screenMaxY = 507 + screenMinY;
 		} else {
-			screenMinY = 507 * scale;
+			screenMinY = 507 * scaleX;
 			screenMaxY = 507 - screenMinY;
 		}
-	}
+	}*/
+	
 }
