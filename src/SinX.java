@@ -4,21 +4,29 @@ import static java.lang.Math.*;
  
 public class SinX extends JComponent {
     
-	GraphPanel p = new GraphPanel();
-	Scale s = new Scale();
-	Point point = new Point();
+	GraphPanel p;
+	Scale s;
+	
+	double sX, sY, eX, eY;
+	double y;
+	
+	public SinX(GraphPanel p, Scale s) {
+		this.p = p;
+		this.s = s;
+	}
 	
     public void paint(Graphics g) {
        
     	g.setColor(Color.red);
-        
-        for(double x = s.getXScale() * p.getXMin(); x <= s.getXScale() * p.getXMax() ; x = x + 0.001)
+
+        for(double x = p.getXMin(); x <= p.getXMax(); x = x + .01)
         {
-            double y = sin(x*((Math.PI)/180));
-            int Y = (int)y;
-            int X = (int)x;
-            point = s.cartesianToPixels(x, y);
-            g.drawLine((int)point.getX(), (int)point.getY(), (int)point.getX(), (int)point.getY());
+        	y = Math.sin(x);
+            sX = s.cartesianToPixelsX(x);
+            sY = s.cartesianToPixelsY(y);
+            eX = s.cartesianToPixelsX(x + 0.1);
+            eY = s.cartesianToPixelsY(y + 0.1);
+            g.drawLine((int)Math.round(sX), (int)Math.round(sY), (int)Math.round(eX), (int)Math.round(eY));
         }
     }
 }

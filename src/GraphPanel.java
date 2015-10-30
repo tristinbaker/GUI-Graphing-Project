@@ -7,14 +7,17 @@ public class GraphPanel extends JPanel {
 	
 	private double xMin, xMax, yMin, yMax;
 	double xAxis, yAxis;
+	double xScale, yScale;
 
 	public GraphPanel() {
 		xMin = -10;
 		xMax = 10;
 		yMin = -10;
 		yMax = 10;
-		xAxis = Math.abs(xMin) / (Math.abs(xMin) + Math.abs(xMax)) * 794;
-		yAxis = Math.abs(yMin) / (Math.abs(yMin) + Math.abs(yMax)) * 507;
+		xScale = 1 - (Math.abs(getYMin()) / (Math.abs(getYMax()) + Math.abs(getYMin())));
+		yScale = Math.abs(getXMin()) / (Math.abs(getXMax()) + Math.abs(getXMin()));
+		xAxis = yScale * 794;
+		yAxis = xScale * 507;
 	}
 	
 	public void setXMin(double xMin) {
@@ -58,8 +61,10 @@ public class GraphPanel extends JPanel {
 	}
 	
 	public void update() {
-		xAxis = Math.abs(xMin) / (Math.abs(xMin) + Math.abs(xMax)) * 794;
-		yAxis = Math.abs(yMin) / (Math.abs(yMin) + Math.abs(yMax)) * 507;
+		xScale = 1 - (Math.abs(getYMin()) / (Math.abs(getYMax()) + Math.abs(getYMin())));
+		yScale = Math.abs(getXMin()) / (Math.abs(getXMax()) + Math.abs(getXMin()));
+		xAxis = yScale * 794;
+		yAxis = xScale * 507;
 	}
 	
 }

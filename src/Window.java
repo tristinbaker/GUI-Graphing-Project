@@ -19,9 +19,9 @@ public class Window extends JFrame {
 	/*Buttons for selecting which graph you want
 	as well as the group for the buttons */
 	ButtonGroup group = new ButtonGroup();
-	private JRadioButton g1 = new JRadioButton("First Graph");
-	private JRadioButton g2 = new JRadioButton("Second Graph");
-	private JRadioButton g3 = new JRadioButton("Third Graph");
+	private JRadioButton g1 = new JRadioButton("sin(x)");
+	private JRadioButton g2 = new JRadioButton("x²");
+	private JRadioButton g3 = new JRadioButton("x³");
 	
 	//The components for the info panel. 	
 	private JLabel xMinLabel = new JLabel("X Min:");
@@ -44,12 +44,12 @@ public class Window extends JFrame {
 	Painter painter = new Painter();
 	
 	//scaler
-	Scale s = new Scale();
+	Scale s = new Scale(this.p);
 	
 	//function initializers
-	public SinX sinx = new SinX();
-	public XSquared x2 = new XSquared();
-	public XCubed x3 = new XCubed();
+	public SinX sinx = new SinX(this.p, this.s);
+	public XSquared x2 = new XSquared(this.p, this.s);
+	public XCubed x3 = new XCubed(this.p, this.s);
 	
 	public Window() {
 		setTitle("Graphing Application");
@@ -111,8 +111,6 @@ public class Window extends JFrame {
 				double xMin = Double.parseDouble(xMinValue);
 				p.setXMin(xMin);
 				p.update();
-				System.out.println("After setting X Min, X Min: " + p.getXMin());
-				s.update();
 				repaint();
 			}
 		});
@@ -128,7 +126,6 @@ public class Window extends JFrame {
 				double xMax = Double.parseDouble(xMaxValue);
 				p.setXMax(xMax);
 				p.update();
-				s.update();
 				repaint();
 			}
 		});
@@ -144,7 +141,6 @@ public class Window extends JFrame {
 				double yMin = Double.parseDouble(yMinValue);
 				p.setYMin(yMin);
 				p.update();
-				s.update();
 				repaint();
 			}
 		});
@@ -160,7 +156,6 @@ public class Window extends JFrame {
 				double yMax = Double.parseDouble(yMaxValue);
 				p.setYMax(yMax);
 				p.update();
-				s.update();
 				repaint();
 			}
 		});
@@ -187,27 +182,24 @@ public class Window extends JFrame {
 	private int getGraph() {
 		return count;
 	}
-	
 
 	class Painter extends JPanel {
 		@Override
 		public void paintComponent(Graphics gc) {			
 			super.paintComponent(gc);
-		 
-			
 			
 			//repaint our lines
-			Graphics2D g = (Graphics2D) gc;		
+			Graphics2D g = (Graphics2D) gc;	
 			
-			//x-axis
+			//y-axis
 			if(p.getXMin() <= 0 && p.getXMax() >= 0) {
 				g.setColor(Color.black);
 				g.drawLine((int)p.getXAxis(), 0, (int)p.getXAxis(), 507);
 			}
 			
-			//y-axis
+			//x-axis
 			if(p.getYMin() <= 0 && p.getYMax() >= 0) {
-				g.drawLine(0, (int)p.getYAxis(), 794, (int)p.getYAxis());
+				g.drawLine(0, Math.abs((int)p.getYAxis()), 794, Math.abs((int)p.getYAxis()));
 			} 
 			
 			if(getGraph() == 1) {
@@ -217,6 +209,7 @@ public class Window extends JFrame {
 			} else if(getGraph() == 3) {
 				x3.paint(g);
 			}
+			
 		}
 	}
 	
