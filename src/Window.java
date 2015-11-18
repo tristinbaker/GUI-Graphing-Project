@@ -35,27 +35,17 @@ public class Window extends JFrame {
 	
 	//the components for the graph panel
 	private JLabel lblxy = new JLabel("(X,Y): ");
-	private JTextField xyID = new JTextField();
 	
 	//graphpanel
-	GraphPanel p = new GraphPanel();
-	
-	//inner paint class
-	Painter painter = new Painter();
-	
-	//scaler
-	Scale s = new Scale(this.p);
-	
-	//function initializers
-	public SinX sinx = new SinX(this.p, this.s);
-	public XSquared x2 = new XSquared(this.p, this.s);
-	public XCubed x3 = new XCubed(this.p, this.s);
+	GraphPanel p;
 	
 	public Window() {
 		setTitle("Graphing Application");
 		setSize(800, 600);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		
+		p = new GraphPanel();
 		
 		//initial button layout
 		add(buttonPanel, BorderLayout.NORTH);
@@ -72,7 +62,7 @@ public class Window extends JFrame {
 			 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setGraph(1);
+				p.setGraph(1);
 				repaint();
 			}
 		});
@@ -80,7 +70,7 @@ public class Window extends JFrame {
 			 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setGraph(2);
+				p.setGraph(2);
 				repaint();
 			}
 		});
@@ -88,7 +78,7 @@ public class Window extends JFrame {
 			 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setGraph(3);
+				p.setGraph(3);
 				repaint();
 			}
 		});
@@ -163,54 +153,12 @@ public class Window extends JFrame {
 		infoPanel.setBackground(Color.DARK_GRAY);
 		
 		//the main graph panel components
-		painter.setLayout(null);
+		p.setLayout(null);
 		lblxy.setBounds(680, 14, 46, 14);
-		painter.add(lblxy);
-		xyID.setEditable(false);
-		xyID.setBounds(715, 11, 59, 20);
-		painter.add(xyID); 
-		painter.setBackground(Color.white);
-		add(painter, BorderLayout.CENTER);
-	}
-	
-	//sets which graph will be graphed
-	private void setGraph(int count) {
-		this.count = count;
-	}
-	
-	//returns which graph will be graphed
-	private int getGraph() {
-		return count;
-	}
-
-	class Painter extends JPanel {
-		@Override
-		public void paintComponent(Graphics gc) {			
-			super.paintComponent(gc);
-			
-			//repaint our lines
-			Graphics2D g = (Graphics2D) gc;	
-			
-			//y-axis
-			if(p.getXMin() <= 0 && p.getXMax() >= 0) {
-				g.setColor(Color.black);
-				g.drawLine((int)p.getXAxis(), 0, (int)p.getXAxis(), 507);
-			}
-			
-			//x-axis
-			if(p.getYMin() <= 0 && p.getYMax() >= 0) {
-				g.drawLine(0, Math.abs((int)p.getYAxis()), 794, Math.abs((int)p.getYAxis()));
-			} 
-			
-			if(getGraph() == 1) {
-				sinx.paint(g);
-			} else if(getGraph() == 2) {
-				x2.paint(g);
-			} else if(getGraph() == 3) {
-				x3.paint(g);
-			}
-			
-		}
+		add(lblxy);
+		
+		p.add(lblxy);
+		add(p);
 	}
 	
 	public static void main(String[] args) {
